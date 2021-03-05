@@ -58,12 +58,8 @@ public class MainApp implements CommandLineRunner {
 		categoryRepository.deleteAll();
 		matchRepository.deleteAll();
 		
-		readCsv();
+		csv.readCSV();
 		startMatch();
-	}
-
-	public void readCsv() {
-		List<Question> questions = csv.readCSV();
 	}
 
 	public void startMatch() {
