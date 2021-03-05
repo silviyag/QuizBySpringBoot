@@ -1,4 +1,4 @@
-package myProject.mainApp.Reader;
+package myProject.mainApp;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,7 +20,7 @@ public class CSVReader {
 
     public static List<Question> readCSV() {
 
-        final String path = "src\\main\\java\\myProject\\mainApp\\Wissenstest_sample200.csv";//@toDo localize strings /spring-boot-application-run/src/main/java/myProject/mainApp/Wissenstest_sample200.csv
+        final String path = "src\\main\\resources\\Wissenstest_sample200.csv";//@toDo localize strings /spring-boot-application-run/src/main/java/myProject/mainApp/Wissenstest_sample200.csv
         final String splitCharacter = ";";
         List<Question> questions = new ArrayList<Question>();
         Category c = new Category();
