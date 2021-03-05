@@ -20,13 +20,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 import myProject.Model.Category;
+import myProject.Model.Match;
 import myProject.Model.Player;
 import myProject.Model.Question;
+import myProject.mainApp.Reader.CSVReader;
+import myProject.mainApp.Repos.CategoryRepository;
+import myProject.mainApp.Repos.MatchRepository;
+import myProject.mainApp.Repos.PlayerRepository;
+import myProject.mainApp.Repos.QuestionRepository;
 
 @SpringBootConfiguration
-@EnableAutoConfiguration
 @ComponentScan
 @SpringBootApplication
+@EnableAutoConfiguration(exclude = {org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class})
 public class MainApp implements CommandLineRunner {
 
 	@Autowired(required = true)
@@ -35,6 +41,8 @@ public class MainApp implements CommandLineRunner {
 	private QuestionRepository questionRepository;
 	@Autowired(required = true)
 	private CategoryRepository categoryRepository;
+	@Autowired(required = true)
+	private MatchRepository matchRepository;
 	CSVReader csv = new CSVReader();
 	private static final Logger log = LoggerFactory.getLogger(MainApp.class);
 
@@ -49,15 +57,14 @@ public class MainApp implements CommandLineRunner {
 		playerRepository.deleteAll();
 		questionRepository.deleteAll();
 		categoryRepository.deleteAll();
+		matchRepository.deleteAll();
 		
 		readCsv();
 		startMatch();
 	}
 
 	public void readCsv() {
-		System.out.println("\n Reading CSV File...");
 		List<Question> questions = csv.readCSV();
-		System.out.println("Done reading CSV File" + "\n" + "Connecting to database...");
 	}
 
 	public void startMatch() {
@@ -65,6 +72,9 @@ public class MainApp implements CommandLineRunner {
 		playerRepository.save(new Player(1, "Sissi"));
 		categoryRepository.save(new Category(2));
 		questionRepository.save(new Question(2));
+		
+		categoryRepository.findAll();
+		matchRepository.save(new Match(categoryRepository.findAll()));
 
 		chooseCategory(2, 2);
 		//analyseStart();
