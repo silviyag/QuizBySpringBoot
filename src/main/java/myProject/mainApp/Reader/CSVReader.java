@@ -1,4 +1,4 @@
-package myProject.mainApp;
+package myProject.mainApp.Reader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -52,28 +52,28 @@ public class CSVReader {
         return questions;
     }
 
-    String getAllCategories(int i) {
+    public String getAllCategories(int i) {
         return allCategories.get(i);
 
     }
 
-    String getHmText(int i) {
+    public String getHmText(int i) {
         return hm.get(i);
     }
 
-    HashMap<Integer, String> getHmText() {
+    public HashMap<Integer, String> getHmText() {
         return hm;
     }
 
-    List<String> getAnswers() {
+    public  List<String> getAnswers() {
         return answers;
     }
 
-    List<String> getQuesstion() {
+    public List<String> getQuesstion() {
         return questionsIds;
     }
 
-    List<String> getCorrectAnswers() {
+    public  List<String> getCorrectAnswers() {
         return correctAnswers;
     }
 }

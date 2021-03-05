@@ -1,4 +1,4 @@
-package myProject.mainApp;
+package myProject.mainApp.Repos;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
