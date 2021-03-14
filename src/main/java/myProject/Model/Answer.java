@@ -10,42 +10,50 @@ import javax.persistence.ManyToOne;;
 @Entity
 public class Answer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)// to configure the way of increment of the specified column(field). Get the next unique primary key for the entities
-    private int answerId;
-    @ManyToOne
-    private Question question;//many answer to one question
-    private String answerText;
-    
-    public Answer(){
-    	  //default
-    }
-    
-    public Answer(String answerText){
-        this.answerText = answerText;
-    }
-    
-    public int getAnswerId(){
-        return this.answerId;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO) // to configure the way of increment of the specified column(field).
+													// Get the next unique primary key for the entities
+	private int answerId;
+	@ManyToOne
+	private Question question;// many answer to one question
+	private Long questionId;// many answer to one question
+	private String answerText;
+	private int answer;
 
-    public void setAnswerId(int id){
-        this.answerId = id;
-    }
-    
-    public Question getQuestion(){
-        return this.question;
-    }
+	public Answer() {
+		// default
+	}
 
-    public void setQuestion(Question question){
-        this.question = question;
-    }
-    
-    public String getAnswerText(){
-        return answerText;
-    }
-    
-    public void setAnswerText(String text){
-        answerText = text;
-    }
+	public Answer(String answer) {
+		this.answerText = answer;
+	}
+
+	public Answer(Long questionId, int correctAnswer) {
+		this.answer = correctAnswer;
+		this.questionId = questionId;
+	}
+
+	public int getAnswerId() {
+		return this.answerId;
+	}
+
+	public void setAnswerId(int id) {
+		this.answerId = id;
+	}
+
+	public Question getQuestion() {
+		return this.question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+	public String getAnswerText() {
+		return answerText;
+	}
+
+	public void setAnswerText(String text) {
+		answerText = text;
+	}
 }

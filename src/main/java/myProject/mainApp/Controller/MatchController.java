@@ -1,22 +1,28 @@
 package myProject.mainApp.Controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import myProject.Model.Match;
-import myProject.mainApp.Repos.MatchRepository;
+import myProject.mainApp.Interfaces.MatchService;
 
 @Controller
-public class MatchController {
+public class MatchController implements MatchService{
 
-	MatchRepository matchRepository;
+	MatchService matchRepository;
 
-	public MatchController(MatchRepository matchRepository) {
+	public MatchController(MatchService matchRepository) {
 		this.matchRepository = matchRepository;
 	}
 
+	@GetMapping
+	public List<Match> findAll() {
+		return matchRepository.findAll();
+	}
+	
 	@GetMapping("/match")
 	public String getMatch(Model model) {
 		model.addAttribute("match", new Match());
@@ -34,5 +40,11 @@ public class MatchController {
 	@GetMapping("/matches")
 	public String getMatches(Model model) {
 		return "matches/match_list";
+	}
+
+	@Override
+	public Match save(Match match) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,29 +21,40 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
+import myProject.Model.Answer;
 import myProject.Model.Category;
 import myProject.Model.Match;
 import myProject.Model.Player;
 import myProject.Model.Question;
-import myProject.mainApp.Repos.CategoryRepository;
-import myProject.mainApp.Repos.MatchRepository;
-import myProject.mainApp.Repos.PlayerRepository;
-import myProject.mainApp.Repos.QuestionRepository;
+import myProject.mainApp.Interfaces.AnswerService;
+import myProject.mainApp.Interfaces.CategoryService;
+import myProject.mainApp.Interfaces.MatchService;
+import myProject.mainApp.Interfaces.PlayerService;
+import myProject.mainApp.Interfaces.QuestionService;
+import myProject.mainApp.Reader.CSVReader;
 
 @SpringBootConfiguration
 @ComponentScan
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = {org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {
+		org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class })
 public class MainApp implements CommandLineRunner {
 
-	@Autowired(required = true)
-	private PlayerRepository playerRepository;
-	@Autowired(required = true)
-	private QuestionRepository questionRepository;
-	@Autowired(required = true)
-	private CategoryRepository categoryRepository;
-	@Autowired(required = true)
-	private MatchRepository matchRepository;
+	@Autowired
+	private CategoryService categoryService;
+
+	@Autowired
+	private MatchService matchService;
+
+	@Autowired
+	private QuestionService questionService;
+
+	@Autowired
+	private AnswerService answerService;
+
+	@Autowired
+	private PlayerService playerService;
+
 	CSVReader csv = new CSVReader();
 	private static final Logger log = LoggerFactory.getLogger(MainApp.class);
 
@@ -53,102 +66,53 @@ public class MainApp implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		playerRepository.deleteAll();
-		questionRepository.deleteAll();
-		categoryRepository.deleteAll();
-		matchRepository.deleteAll();
-		
-		csv.readCSV();
-		startMatch();
+		// @todo save data while reading
+		csv.readCSV();// read data
+		prepareData();
 	}
 
-	public void startMatch() {
+	public void prepareData() {
+		randomCategory();
+		Long questionId = randomQuestion();
 
-		playerRepository.save(new Player(1, "Sissi"));
-		categoryRepository.save(new Category(2));
-		questionRepository.save(new Question(2));
-		
-		categoryRepository.findAll();
-		matchRepository.save(new Match(categoryRepository.findAll()));
+		// add player
+		// find question by id
+		// save questiion into a match
 
-		chooseCategory(2, 2);
-		//analyseStart();
+		game(questionId);
 	}
 
-	void chooseCategory(int numberOfCategories, int numberOfQuestions) {
-
-		int index = 0;
-		String choose;
-		List<String> choosenCategory = new ArrayList<String>();
-		Random random = new Random(); // zufaellige Zahl, um eine Kategorien auszuwaehlen
-
-		while (index != numberOfCategories) {
-			choose = csv.getAllCategories(random.nextInt(numberOfCategories + 1));// in den Klammern steht die Anzahl
-																					// der Zahlen aus denen eine
-																					// Zufällige ermittelt werden soll.
-			choosenCategory.add(choose);
-			index++;
-		}
-
-		game(choosenCategory, numberOfQuestions);
-		// Optional: analyse Ergebnisse ausgeben
+	void randomCategory() { // simulate selection of category
+		String cat1 = csv.getAllCategories(3);// @todo use random to select categories
+		// save category 1
+		String cat2 = csv.getAllCategories(6);// @todo use random to select categories
+		// save category 2
 	}
 
-	public void game(List<String> choosenCategory, int numberOfQuestions) {
-
-		for (String choosen : choosenCategory) {
-			for (Map.Entry<Integer, String> entry : csv.getHmText().entrySet()) {
-				if (numberOfQuestions == 0) {
-					break;// @toDo Warning ausgeben
-				}
-
-				if (entry.getValue().equals(choosen)) {
-					int key = entry.getKey();
-					for (int j = 0; j < csv.getQuesstion().size(); j++) {
-
-						if (csv.getQuesstion().get(j).contains(String.valueOf(key))) {
-							System.out.println(csv.getQuesstion().get(j));
-							String answers = csv.getAnswers().get(j).substring(5, csv.getAnswers().get(j).length())
-									.trim();
-							System.out.println(answers);
-							int answer = 1;
-
-							answerTest(answer, key);// ob die Antwort richtig war
-//							numberOfQuestions--;
-							break;
-						}
-					}
-				}
-			}
-		}
+	protected Long randomQuestion() {// simulate selection of question, it answers and correct answer
+		// 1. find all categories and random one category from the list
+		// 2. find this in the hashmap csv.getHmText() and get the id oft the question
+		Long questionId = null;
+		int correctAnswer = 0;
+		// 3. getQuestion(), getAnswers(), getCorrectAnswer()
+		// 4. save question ,category,answers and correct answer into Question Object
+		// save answer (Answer object) with  questionId
+		return questionId;
 	}
 
-	private void answerTest(int answer, int key) {
+	public void game(Long questionId) {
+		// find all amtches
+		// find question by id
+		// check if founded matches contains questionId
+		Match match = null;
+		// get match with this questionId
+		// find question into the match and display answers
+		// select correct answer
+		int correctAnswer = 0;
+		answerTest(correctAnswer, questionId, match);
+	}
 
-		int index = 1;
-		for (int i = 0; i < csv.getCorrectAnswers().size(); i++) {
-			String temp = csv.getCorrectAnswers().get(i)
-					.substring(csv.getCorrectAnswers().get(i).length() - 2, csv.getCorrectAnswers().get(i).length())
-					.trim();// right answer
-			String temp2 = csv.getCorrectAnswers().get(i).substring(0, csv.getCorrectAnswers().get(i).length() - 1)
-					.trim();// id of the question
-
-			if (temp2.equals(String.valueOf(key))) {
-				if (temp.equals(String.valueOf(answer))) {
-					System.out.println("Richtig");
-					index++;
-					break;
-				} else {
-					System.out.println("Falsch");
-					index--;
-					break;
-				}
-			}
-		}
-
-//        String playerIdData = String.valueOf(getPlayer().getPlayerId());
-//        indexOfAnswers.add(String.valueOf(index) + " " + playerIdData);
-//        analyse.setIndexOfAnswers(indexOfAnswers);
-		// new Analyse(index, player.getPlayerId());
+	private void answerTest(int answer, Long questionId, Match match) {
+		// get correct answer from match and check it
 	}
 }

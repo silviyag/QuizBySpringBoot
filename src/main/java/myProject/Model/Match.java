@@ -1,9 +1,9 @@
 
 package myProject.Model;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Entity
 @Table(name = "matches")
@@ -25,27 +23,28 @@ public class Match {
 	private Player player;
 	@OneToMany(mappedBy = "match")
 	private List<Category> categories; // selected categories
-	@Temporal(TIMESTAMP)
-	private volatile Date startDate;
-	@Temporal(TIMESTAMP)
-	private volatile Date endDate;
+	private Optional<Question> question; // selected questions
 
 	public Match() {
+		// default
+	}
+
+	public Match(Player player) {
+		this.player = player;
 	}
 
 	public Match(List<Category> categories) {
 		this.categories = categories;
-		// getting data from Database
+	}
+
+	public Match(Optional<Question> question) {
+		this.question = question;
 	}
 
 	public int getMatchId() {
 		return matchId;
 	}
 
-	public Match(Player player) {
-		this.player = player;
-	}
-	
 	public void setMatchId(int matchId) {
 		this.matchId = matchId;
 	}
@@ -54,6 +53,7 @@ public class Match {
 		return player;
 	}
 
+	
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
@@ -82,20 +82,8 @@ public class Match {
 			}
 		}
 	}
-
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	
+	public Optional<Question> getQuestion() {
+		return question;
 	}
 }

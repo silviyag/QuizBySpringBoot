@@ -1,4 +1,4 @@
-package myProject.mainApp;
+package myProject.mainApp.Reader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
