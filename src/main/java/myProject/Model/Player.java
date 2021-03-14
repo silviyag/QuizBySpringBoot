@@ -15,8 +15,6 @@ public class Player {
 	private String playerName;
 	@OneToOne(mappedBy = "player")
 	private Match currentMatch;
-	private int matchesPlayed;
-	private int score;
 
 	public Player() {
 		//
@@ -50,22 +48,6 @@ public class Player {
 
 	public void setCurrentMatch(Match match) {
 		currentMatch = match;
-	}
-
-	public int getMatchesPlayed() {
-		return matchesPlayed;
-	}
-
-	public void setMatchesPlayed(int matches) {
-		matchesPlayed = matches;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
 	}
 
 	@Override

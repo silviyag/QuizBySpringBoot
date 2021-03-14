@@ -16,26 +16,18 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int categoryId;
-	private int categoryNumber;
 	@ManyToOne
 	private Match match;
 	@OneToMany(mappedBy = "category") // bidirectional association. category is owner of this relationship
 	private List<Question> questions;
 	private String categoryTitle;
-	private boolean selected;
 
 	public Category() {
 		// default
 	}
 
 	public Category(String categoryTitle) {
-		this.questions = new ArrayList<Question>();
 		this.categoryTitle = categoryTitle;
-		this.selected = false;
-	}
-
-	public Category(int categoryNumber) {
-		this.categoryNumber = categoryNumber;
 	}
 
 	public int getCategoryId() {
@@ -62,44 +54,11 @@ public class Category {
 		this.questions = questions;
 	}
 
-	public void addQuestion(Question question) {
-		this.questions.add(question);
-	}
-
-	public void deleteQuestionByPosition(int position) {
-		this.questions.remove(position);
-	}
-
-	public void deleteQuestionById(int id) {
-		for (int i = 0; i < this.questions.size(); i++) {
-			if (this.questions.get(i).getQuestionId() == id) {
-				this.questions.remove(i);
-				break;
-			}
-		}
-	}
-
 	public String getCategoryTitle() {
 		return this.categoryTitle;
 	}
 
 	public void setCategoryTitle(String categoryTitle) {
 		this.categoryTitle = categoryTitle;
-	}
-
-	public boolean isSelected() {
-		return this.selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
-
-	public int getNumberOfCategories() {
-		return this.categoryNumber;
-	}
-
-	public void setNumberOfCategories(int numberOfCategory) {
-		this.categoryNumber = numberOfCategory;
 	}
 }

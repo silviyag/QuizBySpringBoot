@@ -12,13 +12,11 @@ public class Question {
 
     @Id
     private int questionId;
-    private int questionNumber;
     @ManyToOne
     private Category category;//many questions to one category
     private String questionText;
     @OneToMany(mappedBy = "question")//specifies that the 'question' field  owns the relationship (i.e. contains the foreign key for the query to find all answers for a question.)
     private List<Answer> answers;
-    private int tippedAnswer;
     private int correctAnswer;
 
     public Question() {
@@ -35,10 +33,6 @@ public class Question {
         answers.add(answer3);
         answers.add(answer4);
         this.correctAnswer = correctAnswer;
-    }
-
-    public Question(int questionNumber) {
-        this.questionNumber = questionNumber;
     }
     
     public int getQuestionId() {
@@ -73,27 +67,11 @@ public class Question {
         this.answers = answers;
     }
 
-    public int getTippedAnswer() {
-        return tippedAnswer;    //Number of tipped Answer
-    }
-
-    public void setTippedAnswer(int tippedAnswer) {
-        this.tippedAnswer = tippedAnswer;    //Number of tipped Answer
-    }
-
     public int getCorrectAnswer() {
         return correctAnswer;    //Number of correct Answer
     }
 
     public void setCorrectAnswer(int correctAnswer) {
-        this.correctAnswer = correctAnswer;    //Number of correct Answer
-    }
-
-    public void setNumberOfQuestions(int numberOfQuestions) {
-        this.questionNumber = numberOfQuestions;
-    }
-    
-    public int getNumberOfQuestions() {
-        return this.questionNumber;
+        this.correctAnswer = correctAnswer; 
     }
 }

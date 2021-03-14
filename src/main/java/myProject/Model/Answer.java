@@ -1,4 +1,4 @@
-
+ 
 package myProject.Model;
 
 import javax.persistence.Entity;
@@ -18,7 +18,7 @@ public class Answer {
 	private Question question;// many answer to one question
 	private Long questionId;// many answer to one question
 	private String answerText;
-	private int answer;
+	private int correctAnswer;
 
 	public Answer() {
 		// default
@@ -29,7 +29,7 @@ public class Answer {
 	}
 
 	public Answer(Long questionId, int correctAnswer) {
-		this.answer = correctAnswer;
+		this.correctAnswer = correctAnswer;
 		this.questionId = questionId;
 	}
 

@@ -1,14 +1,5 @@
 package myProject.mainApp;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.stream.Stream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-import myProject.Model.Answer;
-import myProject.Model.Category;
 import myProject.Model.Match;
-import myProject.Model.Player;
-import myProject.Model.Question;
 import myProject.mainApp.Interfaces.AnswerService;
 import myProject.mainApp.Interfaces.CategoryService;
 import myProject.mainApp.Interfaces.MatchService;
