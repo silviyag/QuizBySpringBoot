@@ -23,18 +23,11 @@ Can test areas of knowledge (categories).
 ***
 A list of technologies used within the project:
 * [SpringBoot]
-* [JPA](https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/jpa-primary-key.html)
-* [AttributeConverter](https://docs.oracle.com/javaee/7/api/javax/persistence/AttributeConverter.html)
-* [Hibernate Eclipse](https://hibernate.org/community/contribute/eclipse-ide/)
-* [Hibernate Gradle Example](https://examples.javacodegeeks.com/enterprise-java/hibernate/hibernate-gradle-example/)
-* [Eclipse](https://wiki.eclipse.org/EGit/User_Guide#Committing_Changes)
-* [MongoDB]
-* [GitKraken](https://www.gitkraken.com/)
-* [EclipseLink](https://www.eclipse.org/eclipselink/)
-* [Persistence Unit](https://www.objectdb.com/java/jpa/entity/persistence-unit)
-*  [JRE 1.8.2]
+*   [JRE 1.8.2]
 *  [JDK 13.0.2]
-*  [Annotation Example](https://www.baeldung.com/jpa-joincolumn-vs-mappedby)
+* [MongoDB]
+* [thymeleaf]
+* [GitKraken](https://www.gitkraken.com/)
 
 ## Installation
 ***
@@ -48,7 +41,7 @@ Content of the repository:
 - Repos
 - Interfaces
 - Controller
--CSV Reader
+- CSV Reader
 - main
 - html 
 - readme file
